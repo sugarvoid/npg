@@ -1,0 +1,451 @@
+picotron cartridge // www.picotron.net
+version 2
+
+:: gfx/
+:: gfx/0.gfx
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI1LTAxLTE3IDEwOjM1OjQ4Iixtb2RpZmllZD0iMjAyNS0w
+NS0xMSAyMTowNjo1MyIscmV2aXNpb249NTQwXV1sejQAfgAAABIxAADzIXtbMF09e2JtcD1weHUA
+QyAQEATwVgcQB8AX0BfABxAH8FYsZmxhZ3M9MCxwYW5feAgAy3k9MCx6b29tPTh9LD4AH-AxAP--
+-------------------------------------------------------------9dQbT04fX0=
+:: gfx/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI1LTAxLTE3IDEwOjM3OjQ1Iixtb2RpZmllZD0iMjAyNS0w
+NS0xMSAyMTowNjo1MyJdXQ==
+:: map/
+:: map/0.map
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI1LTAxLTE3IDEwOjM1OjQ4Iixtb2RpZmllZD0iMjAyNS0w
+NS0xMSAyMTowNjo1MyIscmV2aXNpb249NTQwXV1sejQAaAAAAFgQAADwCHt7Ym1wPXVzZXJkYXRh
+KCJpMTYiLDMyAwAvIjABAP--------------------vxCCIpLGhpZGRlbj1mYWxzZSxwYW5feD0w
+CADSeT0wLHRpbGVfaD0xNgoAEHcKAIB6b29tPTF9fQ==
+:: map/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI1LTAxLTE3IDEwOjM3OjQ1Iixtb2RpZmllZD0iMjAyNS0w
+NS0xMSAyMTowNjo1MyJdXQ==
+:: sfx/
+:: sfx/0.sfx
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI1LTAxLTE3IDEwOjM1OjQ5Iixtb2RpZmllZD0iMjAyNS0w
+NS0xMSAyMTowNjo1MyIscmV2aXNpb249NTQxXV1sejQAtQAAAB8KAAD-MHB4dQADKAAABAAED0AQ
+Ag4AAaABIAKgDgAPEAAN8MoBAgNADw_QBAUGB0AMkAgJCgtADJAPDA8NDw4MQAzw-wEA6-8nqgEQ
+Bg8gEAEgASAB8AACEAIOEAEgDyEgATAPQPDDDygP--DGD-gKD-8PgA-3Dw0B8AkBEAYOMAD-----
+-70f-wEArMHID0AADxBA--_w8HALAP8CAzAP-w9D--8vAP0vDv0u8P8BAP-oUP-----f
+:: sfx/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI1LTAxLTE3IDEwOjM3OjQ1Iixtb2RpZmllZD0iMjAyNS0w
+NS0xMSAyMTowNjo1MyJdXQ==
+:: cell.lua
+--[[pod_format="raw",created="2025-05-11 16:09:54",modified="2025-05-11 21:06:53",revision=558]]
+
+
+Cell = Object:extend()
+
+all_cells = {}
+
+local LOCATIONS = {
+
+	{0,0},
+	{1,0},
+	{2,0},
+	{3,0},
+	
+	{0,1},
+	{1,1},
+	{2,1},
+	{3,1},
+	
+	{0,2},
+	{1,2},
+	{2,2},
+	{3,2},
+	
+	{0,3},
+	{1,3},
+	{2,3},
+	{3,3},
+
+}
+
+local POSITIONS = {
+	{20, 20},
+	{55, 20},
+	{90, 20},
+	{125, 20},
+	
+	-- make y = 37
+	{20, 40},
+	{55, 40},
+	{90, 40},
+	{125, 40},
+	
+	{20, 60},
+	{55, 60},
+	{90, 60},
+	{125, 60},
+	
+	{20, 80},
+	{55, 80},
+	{90, 80},
+	{125, 80},
+
+}
+
+function Cell:new(id)
+
+    self.id = id
+    self.value = {}
+    self.grid_loc = LOCATIONS[id]
+    self.x = POSITIONS[id][1]
+    self.y = POSITIONS[id][2]
+    self.str_x = self.x + 8
+    self.str_y = self.y + 4
+    self.w = 30
+    self.h = 15
+    self.time_left = 100
+    self.number = "123"
+    --b.b_color = 1
+    self.col = col
+    self.is_active = false
+    self.txt_col = 7
+    add(all_cells, self)
+end
+
+function Cell:update()
+    self.is_active = self.grid_loc[1] == selector_index[1] and self.grid_loc[2] == selector_index[2]
+end
+
+function Cell:draw()
+    --rectfill(self.x, self.y, self.x + self.w, self.y + self.h, self.col)
+    rect(self.x, self.y, self.x + self.w, self.y + self.h, self.col)
+    print(self.number, self.str_x, self.str_y, self.txt_col)
+
+    if self.is_active then
+    		self.col = 16
+    else
+    	self.col = 7
+    end
+end
+:: classic.lua
+--[[pod_format="raw",created="2025-05-11 17:26:43",modified="2025-05-11 21:06:53",revision=272]]
+--
+-- classic
+--
+-- Copyright (c) 2014, rxi
+--
+-- This module is free software; you can redistribute it and/or modify it under
+-- the terms of the MIT license. See LICENSE for details.
+--
+
+
+Object = {}
+Object.__index = Object
+
+
+function Object:new()
+end
+
+
+function Object:extend()
+  local cls = {}
+  for k, v in pairs(self) do
+    if k:find("__") == 1 then
+      cls[k] = v
+    end
+  end
+  cls.__index = cls
+  cls.super = self
+  setmetatable(cls, self)
+  return cls
+end
+
+
+function Object:implement(...)
+  for _, cls in pairs({...}) do
+    for k, v in pairs(cls) do
+      if self[k] == nil and type(v) == "function" then
+        self[k] = v
+      end
+    end
+  end
+end
+
+
+function Object:is(T)
+  local mt = getmetatable(self)
+  while mt do
+    if mt == T then
+      return true
+    end
+    mt = getmetatable(mt)
+  end
+  return false
+end
+
+
+function Object:__tostring()
+  return "Object"
+end
+
+
+function Object:__call(...)
+  local obj = setmetatable({}, self)
+  obj:new(...)
+  return obj
+end
+
+:: display_key.lua
+--[[pod_format="raw",created="2025-05-11 18:58:44",modified="2025-05-11 21:06:53",revision=199]]
+
+DisplayKey = Object:extend()
+
+local SIZE = 10
+
+function DisplayKey:new(code,x,y,long,wide)
+	self.x1 = x
+	self.y1 = y
+	self.code = code
+	self.just_pressed = false
+	self.x2 = self.x1+SIZE
+	self.y2 = self.y1+SIZE
+	self.tic = 0
+	self.show = false
+	if (long) self.y2+=13
+	if (wide) self.x2+=13
+end
+
+function DisplayKey:update()
+	self.show = self.tic > 0
+	self.tic = mid(0, 30, self.tic - 1)
+	--if self.tic > 0 then
+		--self.tic-=1
+		--self.show = true
+	--end
+end
+
+function DisplayKey:draw()
+	if self.show then
+		rectfill(self.x1, self.y1, self.x2, self.y2, 8)
+	end
+	rect(self.x1, self.y1, self.x2, self.y2, 7)
+	--print(tostr(self.tic), self.x1, self.y1, 7)
+end
+:: main.lua
+--[[pod_format="raw",created="2025-01-17 10:35:48",modified="2025-05-11 21:06:53",revision=734]]
+
+include("classic.lua")
+include("cell.lua")
+include("display_key.lua")
+include("numpad.lua")
+
+selector_index = {0,0}
+is_numlocked = false
+local key_delay = 0
+local KEYS = {
+	{83,"num_lock", function() toggle_num_lock()  end},
+	{84,"divide"},
+	{85,"multiply"},
+	{86,"minus"},
+	{87,"plus"},
+	{88, "enter", function()  end},
+	{89,1, function()	if is_numlocked then end_pressed() else num_entered(1) end end},
+	{90,2, function()	if is_numlocked then move("down") else num_entered(2) end end},
+	{91,3, function()  end},
+	{92,4, function()	if is_numlocked then move("left") else num_entered(4) end end},
+	{93,5, function()  end},
+	{94,6, function()	if is_numlocked then move("right") else num_entered(6) end end},
+	{95,7, function()	if is_numlocked then home_pressed() else num_entered(1) end end},
+	{96,8, function()	if is_numlocked then move("up") else num_entered(8) end end},
+	{97,9, function()  end},
+	{98,0, function()  end},
+	{99,"period", nil},
+}
+
+
+
+local k_pressed = ""
+
+function _init()
+	fetch("/system/fonts/lil_mono.font"):poke(0x4000)
+	vid(3)
+	Cell(1)
+	Cell(2)
+	Cell(3)
+	Cell(4)
+	Cell(5)
+	Cell(6)
+	Cell(7)
+	Cell(8)
+	Cell(9)
+	Cell(10)
+	Cell(11)
+	Cell(12)
+	Cell(13)
+	Cell(14)
+	Cell(15)
+	Cell(16)
+	
+	--all_cells[3].is_active = true
+end
+
+function _draw()
+	cls()
+	print(tostr(selector_index[1] .. "," .. selector_index[2]), 0, 0, 7)
+	print("keyp: " .. k_pressed, 10, 10, 7)
+	foreach(all_cells, function(obj) obj:draw() end )
+	
+	draw_debug(3,113)
+	
+	numpad:draw()
+end
+
+function _update()
+	for i=83,99 do -- Only check for numpad keys
+		if _keyp(i) then
+			--sfx(1)
+			k_pressed = get_key(i)
+			for nb in all(numpad.d_keys) do
+				if nb.code == i then
+					nb.tic = 6
+				end
+			end
+			do_func(i)
+		end
+	end
+	foreach(all_cells, function(obj) obj:update() end )
+	key_delay = mid(0, key_delay - 0.5, 21)
+	if key_delay <= 0 then
+		k_pressed = ""
+	end
+	numpad:update()
+end
+
+
+
+function do_func(code)
+	for _, v in ipairs(KEYS) do
+        if v[1] == code then
+        	if v[3] then
+        		v[3]()
+        	end
+      	 
+        end
+    end
+end
+
+function _keyp(k)
+    if keyp(k) and key_delay <= 0 then
+        key_delay = 2
+        return true
+    else
+        --ey_delay = mid(0, key_delay - 0.5, 21)
+        return false
+    end
+end
+
+function get_key(code)
+	for _, v in ipairs(KEYS) do
+        if v[1] == code then
+            return v[2]
+        end
+    end
+end
+
+function toggle_num_lock()
+	is_numlocked = not is_numlocked
+	notify(tostr(is_numlocked))
+end
+
+function num_entered(n)
+	notify(tostr(n))
+end
+
+function end_pressed()
+	notify("end pressed")
+	selector_index[1] = 3
+end
+
+function move(dir)
+	if (dir == "up") notify("move up")
+	if (dir == "down") notify("move down")
+	if (dir == "left") notify("move left")
+	if (dir == "right") notify("move right")
+end
+
+function move(dir)
+    if true then
+        if dir == "up" then
+            selector_index[2] = mid(0, 3 , selector_index[2] - 1)
+        elseif dir == "down" then
+            selector_index[2] = mid(0, 3 ,selector_index[2] + 1)
+        elseif dir == "left" then
+            selector_index[1] = mid(0, 3 ,selector_index[1] - 1)
+        elseif dir == "right" then
+            selector_index[1] = mid(0, 3 ,selector_index[1] + 1)
+        end
+    end
+end
+
+function home_pressed()
+	notify("home pressed")
+	selector_index[1] = 0 --mid(0, 3 ,selector_index[1] + 1)
+end
+
+function draw_debug(x, y)
+
+	--Debugs Table
+	local debugs = {
+	    "\#3" .. "fps: " .. stat(7),
+	    "\#3" .. "cpu: " .. flr(stat(1) * 100) .. "%",
+	    "\#3" .. "ram: " .. flr(stat(0) / 1048576 * 100) / 100 .. "mb",
+	}
+	--Print Debugs
+	for i = 0,#debugs do
+	    local txt = debugs[i+1] or ""
+	    local pad = string.rep(" ", max(0, 15 - #txt))
+	    print("\014" .. txt .. pad, x, y + (7 * i), 7)
+	end
+
+end
+:: numpad.lua
+--[[pod_format="raw",created="2025-05-11 18:54:51",modified="2025-05-11 21:06:53",revision=227]]
+
+numpad = {
+	d_keys = {},
+	draw=function(self)
+	foreach(numpad.d_keys, function(obj) obj:draw() end )
+		if is_numlocked then
+			rect(numpad.d_keys[1].x1,numpad.d_keys[1].y1,numpad.d_keys[1].x2,numpad.d_keys[1].y2, 11)
+		end
+	end,
+	update=function()
+		foreach(numpad.d_keys, function(obj) obj:update() end )
+	end,
+}
+
+add(numpad.d_keys, DisplayKey(83,180,30))
+add(numpad.d_keys, DisplayKey(84,193,30))
+add(numpad.d_keys, DisplayKey(85,206,30))
+add(numpad.d_keys, DisplayKey(86,219,30))
+
+add(numpad.d_keys, DisplayKey(95,180,43))
+add(numpad.d_keys, DisplayKey(96,193,43))
+add(numpad.d_keys, DisplayKey(97,206,43))
+add(numpad.d_keys, DisplayKey(87,219,43,true))
+
+add(numpad.d_keys, DisplayKey(92,180,56))
+add(numpad.d_keys, DisplayKey(93,193,56))
+add(numpad.d_keys, DisplayKey(94,206,56))
+
+add(numpad.d_keys, DisplayKey(89,180,69))
+add(numpad.d_keys, DisplayKey(90,193,69))
+add(numpad.d_keys, DisplayKey(91,206,69))
+add(numpad.d_keys, DisplayKey(88,219,69,true))
+
+add(numpad.d_keys, DisplayKey(98,180,82,false,true))
+add(numpad.d_keys, DisplayKey(99,206,82))
+
+:: .info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI1LTAxLTE3IDEwOjM3OjQ1Iixtb2RpZmllZD0iMjAyNS0w
+NS0xMSAyMTowNjo1MyIscnVudGltZT0xOCx3b3Jrc3BhY2VzPXt7bG9jYXRpb249Im1haW4ubHVh
+IzE2NyIsd29ya3NwYWNlX2luZGV4PTF9LHtsb2NhdGlvbj0iY2VsbC5sdWEjMSIsd29ya3NwYWNl
+X2luZGV4PTF9LHtsb2NhdGlvbj0iY2xhc3NpYy5sdWEjMSIsd29ya3NwYWNlX2luZGV4PTF9LHts
+b2NhdGlvbj0ibnVtcGFkLmx1YSMxIix3b3Jrc3BhY2VfaW5kZXg9MX0se2xvY2F0aW9uPSJkaXNw
+bGF5X2tleS5sdWEjMSIsd29ya3NwYWNlX2luZGV4PTF9LHtsb2NhdGlvbj0iZ2Z4LzAuZ2Z4Iix3
+b3Jrc3BhY2VfaW5kZXg9Mn0se2xvY2F0aW9uPSJtYXAvMC5tYXAiLHdvcmtzcGFjZV9pbmRleD0z
+fSx7bG9jYXRpb249InNmeC8wLnNmeCIsd29ya3NwYWNlX2luZGV4PTR9fV1d
+:: [eoc]
