@@ -4,33 +4,34 @@ version 2
 :: gfx/
 :: gfx/0.gfx
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI1LTAxLTE3IDEwOjM1OjQ4Iixtb2RpZmllZD0iMjAyNS0w
-NS0xMSAyMTowNjo1MyIscmV2aXNpb249NTQwXV1sejQAfgAAABIxAADzIXtbMF09e2JtcD1weHUA
-QyAQEATwVgcQB8AX0BfABxAH8FYsZmxhZ3M9MCxwYW5feAgAy3k9MCx6b29tPTh9LD4AH-AxAP--
--------------------------------------------------------------9dQbT04fX0=
+NS0xMiAwMjo1MTo1NSIscmV2aXNpb249NjIyXV1sejQAlgAAAD0xAADzIXtbMF09e2JtcD1weHUA
+QyAQEATwVgcQB8AX0BfABxAH8FYsZmxhZ3M9MCxwYW5feAgAx3k9MCx6b29tPTh9LD4Avx8QBP4Q
+-A0e8A0eBgAQL-4QXAAZAJoAH-AxAP----------------------------------------------
+-----------------6ZQbT04fX0=
 :: gfx/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI1LTAxLTE3IDEwOjM3OjQ1Iixtb2RpZmllZD0iMjAyNS0w
-NS0xMSAyMTowNjo1MyJdXQ==
+NS0xMiAwMjo1MTo1NiJdXQ==
 :: map/
 :: map/0.map
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI1LTAxLTE3IDEwOjM1OjQ4Iixtb2RpZmllZD0iMjAyNS0w
-NS0xMSAyMTowNjo1MyIscmV2aXNpb249NTQwXV1sejQAaAAAAFgQAADwCHt7Ym1wPXVzZXJkYXRh
+NS0xMiAwMjo1MTo1NSIscmV2aXNpb249NjE2XV1sejQAaAAAAFgQAADwCHt7Ym1wPXVzZXJkYXRh
 KCJpMTYiLDMyAwAvIjABAP--------------------vxCCIpLGhpZGRlbj1mYWxzZSxwYW5feD0w
 CADSeT0wLHRpbGVfaD0xNgoAEHcKAIB6b29tPTF9fQ==
 :: map/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI1LTAxLTE3IDEwOjM3OjQ1Iixtb2RpZmllZD0iMjAyNS0w
-NS0xMSAyMTowNjo1MyJdXQ==
+NS0xMiAwMjo1MTo1NiJdXQ==
 :: sfx/
 :: sfx/0.sfx
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI1LTAxLTE3IDEwOjM1OjQ5Iixtb2RpZmllZD0iMjAyNS0w
-NS0xMSAyMTowNjo1MyIscmV2aXNpb249NTQxXV1sejQAtQAAAB8KAAD-MHB4dQADKAAABAAED0AQ
+NS0xMiAwMjo1MTo1NSIscmV2aXNpb249NjE3XV1sejQAtQAAAB8KAAD-MHB4dQADKAAABAAED0AQ
 Ag4AAaABIAKgDgAPEAAN8MoBAgNADw_QBAUGB0AMkAgJCgtADJAPDA8NDw4MQAzw-wEA6-8nqgEQ
 Bg8gEAEgASAB8AACEAIOEAEgDyEgATAPQPDDDygP--DGD-gKD-8PgA-3Dw0B8AkBEAYOMAD-----
 -70f-wEArMHID0AADxBA--_w8HALAP8CAzAP-w9D--8vAP0vDv0u8P8BAP-oUP-----f
 :: sfx/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI1LTAxLTE3IDEwOjM3OjQ1Iixtb2RpZmllZD0iMjAyNS0w
-NS0xMSAyMTowNjo1MyJdXQ==
+NS0xMiAwMjo1MTo1NiJdXQ==
 :: cell.lua
---[[pod_format="raw",created="2025-05-11 16:09:54",modified="2025-05-11 21:06:53",revision=558]]
+--[[pod_format="raw",created="2025-05-11 16:09:54",modified="2025-05-12 02:51:55",revision=690]]
 
 
 Cell = Object:extend()
@@ -63,25 +64,25 @@ local LOCATIONS = {
 
 local POSITIONS = {
 	{20, 20},
-	{55, 20},
-	{90, 20},
-	{125, 20},
+	{53, 20},
+	{86, 20},
+	{119, 20},
 	
 	-- make y = 37
-	{20, 40},
-	{55, 40},
-	{90, 40},
-	{125, 40},
+	{20, 38},
+	{53, 38},
+	{86, 38},
+	{119, 38},
 	
-	{20, 60},
-	{55, 60},
-	{90, 60},
-	{125, 60},
+	{20, 56},
+	{53, 56},
+	{86, 56},
+	{119, 56},
 	
-	{20, 80},
-	{55, 80},
-	{90, 80},
-	{125, 80},
+	{20, 74},
+	{53, 74},
+	{86, 74},
+	{119, 74},
 
 }
 
@@ -90,18 +91,21 @@ function Cell:new(id)
     self.id = id
     self.value = {}
     self.grid_loc = LOCATIONS[id]
-    self.x = POSITIONS[id][1]
-    self.y = POSITIONS[id][2]
-    self.str_x = self.x + 8
-    self.str_y = self.y + 4
+    self.x1 = POSITIONS[id][1]
+    self.y1 = POSITIONS[id][2]
+    self.str_x = self.x1 + 8
+    self.str_y = self.y1 + 4
     self.w = 30
     self.h = 15
-    self.time_left = 100
+    self.x2 = self.x1 + self.w
+    self.y2 = self.y1 + self.h
+    self.time_left = 15
     self.number = "123"
     --b.b_color = 1
     self.col = col
     self.is_active = false
     self.txt_col = 7
+    self.is_closed = false
     add(all_cells, self)
 end
 
@@ -111,17 +115,22 @@ end
 
 function Cell:draw()
     --rectfill(self.x, self.y, self.x + self.w, self.y + self.h, self.col)
-    rect(self.x, self.y, self.x + self.w, self.y + self.h, self.col)
+    rectfill(self.x1, self.y1 + self.time_left, self.x2, self.y2, 5)
+    rect(self.x1, self.y1, self.x2, self.y2, self.col)
     print(self.number, self.str_x, self.str_y, self.txt_col)
 
     if self.is_active then
     		self.col = 16
+    		--spr(1, self.x1, self.y1)
     else
     	self.col = 7
     end
 end
+
+function Cell:set_new_number(n)
+end
 :: classic.lua
---[[pod_format="raw",created="2025-05-11 17:26:43",modified="2025-05-11 21:06:53",revision=272]]
+--[[pod_format="raw",created="2025-05-11 17:26:43",modified="2025-05-12 02:51:55",revision=348]]
 --
 -- classic
 --
@@ -189,7 +198,7 @@ function Object:__call(...)
 end
 
 :: display_key.lua
---[[pod_format="raw",created="2025-05-11 18:58:44",modified="2025-05-11 21:06:53",revision=199]]
+--[[pod_format="raw",created="2025-05-11 18:58:44",modified="2025-05-12 02:51:55",revision=276]]
 
 DisplayKey = Object:extend()
 
@@ -225,7 +234,7 @@ function DisplayKey:draw()
 	--print(tostr(self.tic), self.x1, self.y1, 7)
 end
 :: main.lua
---[[pod_format="raw",created="2025-01-17 10:35:48",modified="2025-05-11 21:06:53",revision=734]]
+--[[pod_format="raw",created="2025-01-17 10:35:48",modified="2025-05-12 02:51:55",revision=810]]
 
 include("classic.lua")
 include("cell.lua")
@@ -402,7 +411,7 @@ function draw_debug(x, y)
 
 end
 :: numpad.lua
---[[pod_format="raw",created="2025-05-11 18:54:51",modified="2025-05-11 21:06:53",revision=227]]
+--[[pod_format="raw",created="2025-05-11 18:54:51",modified="2025-05-12 02:51:55",revision=304]]
 
 numpad = {
 	d_keys = {},
@@ -441,11 +450,11 @@ add(numpad.d_keys, DisplayKey(99,206,82))
 
 :: .info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI1LTAxLTE3IDEwOjM3OjQ1Iixtb2RpZmllZD0iMjAyNS0w
-NS0xMSAyMTowNjo1MyIscnVudGltZT0xOCx3b3Jrc3BhY2VzPXt7bG9jYXRpb249Im1haW4ubHVh
-IzE2NyIsd29ya3NwYWNlX2luZGV4PTF9LHtsb2NhdGlvbj0iY2VsbC5sdWEjMSIsd29ya3NwYWNl
-X2luZGV4PTF9LHtsb2NhdGlvbj0iY2xhc3NpYy5sdWEjMSIsd29ya3NwYWNlX2luZGV4PTF9LHts
-b2NhdGlvbj0ibnVtcGFkLmx1YSMxIix3b3Jrc3BhY2VfaW5kZXg9MX0se2xvY2F0aW9uPSJkaXNw
-bGF5X2tleS5sdWEjMSIsd29ya3NwYWNlX2luZGV4PTF9LHtsb2NhdGlvbj0iZ2Z4LzAuZ2Z4Iix3
-b3Jrc3BhY2VfaW5kZXg9Mn0se2xvY2F0aW9uPSJtYXAvMC5tYXAiLHdvcmtzcGFjZV9pbmRleD0z
-fSx7bG9jYXRpb249InNmeC8wLnNmeCIsd29ya3NwYWNlX2luZGV4PTR9fV1d
+NS0xMiAwMjo1MTo1NiIscnVudGltZT0xOCx3b3Jrc3BhY2VzPXt7bG9jYXRpb249Im1haW4ubHVh
+IzEiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249ImNlbGwubHVhIzg5Iix3b3Jrc3BhY2Vf
+aW5kZXg9MX0se2xvY2F0aW9uPSJjbGFzc2ljLmx1YSMxIix3b3Jrc3BhY2VfaW5kZXg9MX0se2xv
+Y2F0aW9uPSJudW1wYWQubHVhIzEiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249ImRpc3Bs
+YXlfa2V5Lmx1YSMxIix3b3Jrc3BhY2VfaW5kZXg9MX0se2xvY2F0aW9uPSJnZngvMC5nZngiLHdv
+cmtzcGFjZV9pbmRleD0yfSx7bG9jYXRpb249Im1hcC8wLm1hcCIsd29ya3NwYWNlX2luZGV4PTN9
+LHtsb2NhdGlvbj0ic2Z4LzAuc2Z4Iix3b3Jrc3BhY2VfaW5kZXg9NH19XV0=
 :: [eoc]
